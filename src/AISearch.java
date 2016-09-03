@@ -59,10 +59,6 @@ public class AISearch {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
 
-        for(String operator : operationList) {
-            System.out.println(operator);
-        }
-
         return operationList;
     }
 
@@ -85,7 +81,8 @@ public class AISearch {
             return new LinkedList<String>();
         }
 
-        for(int depth = 0; depth == depth; depth++) {
+        for(int depth = 1; depth == depth; depth++) {
+            System.out.println(depth);
             LinkedList<String> operatorPath = this.depthLimitedSearch(this.startingValue, depth, new LinkedList<String>());
             if(!operatorPath.isEmpty()) {
                 return operatorPath;
@@ -101,21 +98,24 @@ public class AISearch {
         if(depth == 0 && root == this.targetValue) {
             return operations;
         }
+        else if(depth == 0) {
+            return new LinkedList<String>();
+        }
         else if(depth > 0) {
             for(String operator : this.operators) {
                 operations.addLast(operator);
-                Double child = this.performOperation(root, operator);
+                Double child = performOperation(root, operator);
                 LinkedList<String> nextLevel = this.depthLimitedSearch(child, depth - 1, operations);
-                if(nextLevel.size() == operations.size()) {
-                    return operations;
+                if(!nextLevel.isEmpty()) {
+                    return nextLevel;
                 }
             }
         }
 
-        return new LinkedList<String>();
+        return operations;
     }
 
-    public Double performOperation(Double root, String op) throws OperatorNotSupportedException{
+    public static Double performOperation(Double root, String op) throws OperatorNotSupportedException{
 
         //parse the operator
         String[] splitOperator = op.split("\\s+");//Divides operator from operand
@@ -140,6 +140,16 @@ public class AISearch {
         else {
             throw new OperatorNotSupportedException("Operator not supported. Please make sure all operators are in an acceptable format.");
         }
+    }
 
+    public static void displayPath(double startingValue, LinkedList<String> operatorPath) throws OperatorNotSupportedException{
+        if(operatorPath.isEmpty()){
+            return;
+        }
+
+        String operator = operatorPath.removeFirst();
+        Double newValue = AISearch.performOperation(startingValue, operator);
+        System.out.println(startingValue + " " + operator + " = " + newValue);
+        AISearch.displayPath(newValue, operatorPath);
     }
 }
