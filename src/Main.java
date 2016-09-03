@@ -44,6 +44,9 @@ public class Main {
         catch (SearchTypeNotSupportedException e) {
             e.printStackTrace();
         }
+        catch(OperatorNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
