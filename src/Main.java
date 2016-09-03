@@ -36,12 +36,16 @@ public class Main {
             }
 
             AISearch search = new AISearch(type, startingValue, targetValue, time, operators);
-            search.execute();
+            LinkedList<String> operatorPath = search.execute();
+            AISearch.displayPath(startingValue, operatorPath);
             
         } catch (IOException e) {
             e.printStackTrace();
         }
         catch (SearchTypeNotSupportedException e) {
+            e.printStackTrace();
+        }
+        catch(OperatorNotSupportedException e) {
             e.printStackTrace();
         }
     }
