@@ -41,23 +41,43 @@ public class AISearch {
         this.operators = ops;
     }
 
+    /**
+     *
+     * @return List of operators to go from initial to target goal
+     * @throws SearchTypeNotSupportedException
+     */
     public LinkedList<String> execute() throws SearchTypeNotSupportedException{
+        LinkedList<String> operationList;
 
         if(this.type.equals("greedy")){
-            return this.greedySearch();
+            operationList = this.greedySearch();
         }
         else if(this.type.equals("iterative")){
-            return this.iterativeSearch();
+            operationList = this.iterativeSearch();
         }
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
 
+        for(String operator : operationList) {
+            System.out.println(operator);
+        }
+
+        return operationList;
     }
 
+    /**
+     *
+     * @return  List of operators to go from initial to target goal using greedy search
+     */
     public LinkedList<String> greedySearch(){
         return new LinkedList<String>();
     }
+
+    /**
+     *
+     * @return  List of operators to go from initial to target goal using iterative search
+     */
     public LinkedList<String> iterativeSearch(){
         return new LinkedList<String>();
     }

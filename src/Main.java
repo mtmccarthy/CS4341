@@ -15,12 +15,10 @@ public class Main {
         String fileName = args[0];
 
         String type; //iterative or deepening
-        //int startingValue; //the starting value for the program
-        double startingValue;
-        //double time; //the amount of time the program has to solve
-        double time;
-        //String[] operators; //Operators for the program to process
-        LinkedList<String> operators;
+        double startingValue; //Starting value for the search
+        double targetValue; //Target value for the search
+        double time; //the amount of time the program has to solve
+        LinkedList<String> operators; //Operators for the program to process
 
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
@@ -29,20 +27,21 @@ public class Main {
 
             type = inputArray[0].toString();//First line in the array is the type
             startingValue = Double.parseDouble(inputArray[1].toString());//Second line is the starting value
-            time = Double.parseDouble(inputArray[2].toString()); //Third line is the time
+            targetValue = Double.parseDouble(inputArray[2].toString());
+            time = Double.parseDouble(inputArray[3].toString()); //Third line is the time
             operators = new LinkedList<String>();
-            for(int i = 3; i < inputArray.length; i++){
-                operators.add(i-3, inputArray[i].toString());
+
+            for(int i = 4; i < inputArray.length; i++){
+                operators.add(i - 4, inputArray[i].toString());
             }
 
-            System.out.println(type);
-            System.out.println(startingValue);
-            System.out.println(time);
-            for(String x : operators){
-                System.out.println(x);
-            }
-
+            AISearch search = new AISearch(type, startingValue, targetValue, time, operators);
+            search.execute();
+            
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (SearchTypeNotSupportedException e) {
             e.printStackTrace();
         }
     }
