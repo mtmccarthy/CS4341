@@ -82,7 +82,6 @@ public class AISearch {
         }
 
         for(int depth = 1; depth == depth; depth++) {
-            System.out.println(depth);
             LinkedList<String> operatorPath = this.depthLimitedSearch(this.startingValue, depth, new LinkedList<String>());
             if(!operatorPath.isEmpty()) {
                 return operatorPath;
