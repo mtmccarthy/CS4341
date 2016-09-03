@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.stream.Stream;
 
 /**
@@ -18,7 +19,8 @@ public class Main {
         double startingValue;
         //double time; //the amount of time the program has to solve
         double time;
-        String[] operators; //Operators for the program to process
+        //String[] operators; //Operators for the program to process
+        LinkedList<String> operators;
 
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
@@ -28,9 +30,9 @@ public class Main {
             type = inputArray[0].toString();//First line in the array is the type
             startingValue = Double.parseDouble(inputArray[1].toString());//Second line is the starting value
             time = Double.parseDouble(inputArray[2].toString()); //Third line is the time
-            operators = new String[inputArray.length - 3];
+            operators = new LinkedList<String>();
             for(int i = 3; i < inputArray.length; i++){
-                operators[i-3] = (String) inputArray[i];
+                operators.add(i-3, inputArray[i].toString());
             }
 
             System.out.println(type);
