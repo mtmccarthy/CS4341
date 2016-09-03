@@ -109,10 +109,11 @@ public class AISearch {
                 if(!nextLevel.isEmpty()) {
                     return nextLevel;
                 }
+                operations.removeLast();
             }
         }
 
-        return operations;
+        return new LinkedList<String>();
     }
 
     public static Double performOperation(Double root, String op) throws OperatorNotSupportedException{
