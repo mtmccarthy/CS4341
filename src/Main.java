@@ -2,15 +2,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Stream;
 
+import exception.OperatorNotSupportedException;
+import exception.SearchTypeNotSupportedException;
+
+
 /**
- * Created by Matt McCarthy on 9/2/16.
+ * Created by Matt McCarthy on 9/2/16. ReInvented by Ben Bianchi
  */
 public class Main {
 
     public static void main(String[] args){
-        //We assume that the program is given a single arguement, the name of the file containing the rest
+        //We assume that the program is given a single argument, the name of the file containing the rest
         //of the information about the assignment.
         String fileName = args[0];
 
@@ -30,14 +36,25 @@ public class Main {
             targetValue = Double.parseDouble(inputArray[2].toString());
             time = Double.parseDouble(inputArray[3].toString()); //Third line is the time
             operators = new LinkedList<String>();
-
+            
             for(int i = 4; i < inputArray.length; i++){
                 operators.add(i - 4, inputArray[i].toString());
             }
+            
+            //Populate the search, dont run the actual search yet.
+            AISearch search = new AISearch(type, startingValue, targetValue, operators);
+            
+            //Set a timer that will stop the program if it goes over the time limit. THIS IS ASYNC!
+            Timer t = new Timer();
+            SearchTask st = new SearchTask(search);
+            
+            //Execute the Search and start the clock.
+            t.schedule(st,0, (long) (time * 1000)); 
+            search.path = search.execute();
+            
+            
+            
 
-            AISearch search = new AISearch(type, startingValue, targetValue, time, operators);
-            LinkedList<String> operatorPath = search.execute();
-            AISearch.displayPath(startingValue, operatorPath);
             
         } catch (IOException e) {
             e.printStackTrace();
