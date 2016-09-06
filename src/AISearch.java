@@ -34,6 +34,7 @@ public class AISearch {
      */
     
 	public LinkedList<String> path;
+	private SearchTask searchTask;
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
@@ -75,6 +76,7 @@ public class AISearch {
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
+        this.searchTask.cancel();
 
         
         /*
@@ -231,7 +233,7 @@ public class AISearch {
 
 
     public static void displayPath(double startingValue, LinkedList<String> operatorPath) throws OperatorNotSupportedException{
-        if(operatorPath.isEmpty()){
+        if(operatorPath.isEmpty() ){
             return;
         }
 
@@ -240,4 +242,10 @@ public class AISearch {
         System.out.println(startingValue + " " + operator + " = " + newValue);
         AISearch.displayPath(newValue, operatorPath);
     }
+
+
+	public void setTimerTask(SearchTask searchTask) {
+		this.searchTask = searchTask;
+		
+	}
 }

@@ -49,7 +49,8 @@ public class Main {
             SearchTask st = new SearchTask(search);
             
             //Execute the Search and start the clock.
-            t.schedule(st,0, (long) (time * 1000)); 
+            //There was an issue in a previous commit in which the period needed to be specified.
+            t.schedule(st,(long) (time * 1000),(long) (time * 1000)); 
             search.path = search.execute();
             
             

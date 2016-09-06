@@ -7,6 +7,7 @@ public class SearchTask extends TimerTask {
 	public SearchTask(AISearch s)
 	{
 		this.search = s;
+		search.setTimerTask(this);
 	}
 
 	private AISearch search;
@@ -14,7 +15,6 @@ public class SearchTask extends TimerTask {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
 		
 		
 		try {
