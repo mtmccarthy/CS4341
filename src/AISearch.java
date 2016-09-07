@@ -137,7 +137,7 @@ public class AISearch {
         
         ops.add(pathNode);
         
-        return greedySearch(min,ops);
+        return greedySearch(min+h,ops);
     }
 
     /**
@@ -145,7 +145,7 @@ public class AISearch {
      * @param branchVal the branch we are choosing to explore.
      * @return the hueristic value of the branch
      */
-    private double hueristicFunction(double branchVal) {
+    private double heuristicFunction(double branchVal) {
 		return Math.abs(this.targetValue - branchVal);	
 	}
 
