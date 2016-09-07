@@ -19,10 +19,13 @@ public class SearchTask extends TimerTask {
 		
 		try {
 			AISearch.displayPath(search.startingValue,search.path);
-		} catch (OperatorNotSupportedException e) {
+		} catch (OperatorNotSupportedException | NullPointerException e) {
+			
+			System.out.println("Search did not complete in time");
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		this.cancel();
 		
         /*
          * Failure Case: Need to output
@@ -31,8 +34,8 @@ public class SearchTask extends TimerTask {
          * Nodes expanded:
          * Maximum search depth:
          */
-		System.out.println("Search did not complete in time");
-		System.exit(0);
+		
+//		System.exit(0);
 		
 
 	}

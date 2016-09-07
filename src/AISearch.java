@@ -68,7 +68,7 @@ public class AISearch {
         LinkedList<String> operationList;
 
         if(this.type.trim().equals("greedy")){
-            operationList = this.greedySearch(0, new LinkedList<String>());
+            operationList = this.greedySearch(this.startingValue, new LinkedList<String>());
         }
         else if(this.type.trim().equals("iterative")){
             operationList = this.iterativeSearch();
@@ -103,7 +103,7 @@ public class AISearch {
     public LinkedList<String> greedySearch(double h, LinkedList<String> ops) throws OperatorNotSupportedException{
     	// TODO: this throws an StackOverFlowException, we need to solve this.
     	
-    	double min = 0;
+    	double min = -1;
     	String pathNode = "";
 
         if(startingValue == targetValue) {
@@ -119,7 +119,14 @@ public class AISearch {
         	        	
         	double temp = this.hueristicFunction(branchVal);
         	
-        	if (min == 0 || min > temp)
+        	if (temp == 0)
+        	{
+        		ops.add(pathNode);
+        		
+        		return ops;
+        	}
+        	
+        	if (min == -1 || min > temp)
         	{
         		min = temp;
         		pathNode = operator;
@@ -206,6 +213,7 @@ public class AISearch {
     	
     	nodesExpanded++;
     	
+    	
         //parse the operator
         String[] splitOperator = op.split("\\s+");//Divides operator from operand
         String operator = splitOperator[0];
@@ -233,7 +241,7 @@ public class AISearch {
 
 
     public static void displayPath(double startingValue, LinkedList<String> operatorPath) throws OperatorNotSupportedException{
-        if(operatorPath.isEmpty() ){
+        if(operatorPath.size() == 0 ){
             return;
         }
 
