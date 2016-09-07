@@ -220,21 +220,21 @@ public class AISearch {
         String[] splitOperator = op.split("\\s+");//Divides operator from operand
         String operator = splitOperator[0];
         Double operand = Double.parseDouble(splitOperator[1]);
-
         if(operator.equals("+")){
-            return root + operand;
+
+            return Math.floor(root + operand);
         }
         else if(operator.equals("-")){
-            return root - operand;
+            return Math.floor(root - operand);
         }
         else if(operator.equals("*")){
-            return root * operand;
+            return Math.floor(root * operand);
         }
         else if(operator.equals("/")){
-            return root / operand;
+            return Math.floor(root / operand);
         }
         else if(operator.equals("^")){
-            return Math.pow(root, operand);
+            return Math.floor(Math.pow(root, operand));
         }
         else {
             throw new OperatorNotSupportedException("Operator not supported. Please make sure all operators are in an acceptable format. Formats include '+', '-', '*', '/', and '^'");
