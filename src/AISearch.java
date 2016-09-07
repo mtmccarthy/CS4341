@@ -64,9 +64,10 @@ public class AISearch {
      * @throws SearchTypeNotSupportedException
      */
     public LinkedList<String> execute() throws SearchTypeNotSupportedException, OperatorNotSupportedException{
-    	long now = System.currentTimeMillis();
+    	
         LinkedList<String> operationList;
-
+        
+        long now = System.currentTimeMillis();
         if(this.type.trim().equals("greedy")){
             operationList = this.greedySearch(this.startingValue, new LinkedList<String>());
         }
@@ -246,9 +247,13 @@ public class AISearch {
         }
 
         String operator = operatorPath.removeFirst();
-        Double newValue = AISearch.performOperation(startingValue, operator);
-        System.out.println(startingValue + " " + operator + " = " + newValue);
-        AISearch.displayPath(newValue, operatorPath);
+        if (operator.equals("") == false)
+        {
+        	Double newValue = AISearch.performOperation(startingValue, operator);
+        	System.out.println(startingValue + " " + operator + " = " + newValue);
+            AISearch.displayPath(newValue, operatorPath);
+        }
+        
     }
 
 
