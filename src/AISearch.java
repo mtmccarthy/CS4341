@@ -105,6 +105,7 @@ public class AISearch {
     	// TODO: this throws an StackOverFlowException, we need to solve this.
     	
     	double min = -1;
+    	double branchVal = 0;
     	String pathNode = "";
 
         if(startingValue == targetValue) {
@@ -112,32 +113,32 @@ public class AISearch {
         }
 
         for(String operator : operators) {
-        	
         	/*
         	 * We will iterate through all operators and check to see which has the most "optimal" heuristic value.
         	 */
-        	double branchVal = this.performOperation(h, operator); // Explore branch
+        	branchVal = this.performOperation(h, operator); // Explore branch
         	        	
-        	double temp = this.hueristicFunction(branchVal);
+        	double temp = this.heuristicFunction(branchVal);
         	
-        	if (temp == 0)
-        	{
-        		ops.add(pathNode);
-        		
-        		return ops;
-        	}
+
         	
         	if (min == -1 || min > temp)
         	{
         		min = temp;
         		pathNode = operator;
         	}
+        	
+        	if (temp == 0)
+        	{
+        		ops.add(pathNode);
+        		return ops;
+        	}
         }
 
         
         ops.add(pathNode);
         
-        return greedySearch(min,ops);
+        return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
     /**
@@ -145,7 +146,7 @@ public class AISearch {
      * @param branchVal the branch we are choosing to explore.
      * @return the hueristic value of the branch
      */
-    private double hueristicFunction(double branchVal) {
+    private double heuristicFunction(double branchVal) {
 		return Math.abs(this.targetValue - branchVal);	
 	}
 
