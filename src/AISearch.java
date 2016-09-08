@@ -95,6 +95,7 @@ public class AISearch {
         long diff = then - now;
         int stepsOutput = operationList.size();
         
+        
         //Output
         this.displayPath(this.startingValue, operationList);
         //finalVal is set by displayPath
