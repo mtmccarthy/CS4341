@@ -90,6 +90,7 @@ public class AISearch {
          * Maximum search depth:
          */
         //create output values
+  
         long then = System.currentTimeMillis();
         long diff = then - now;
         int stepsOutput = operationList.size();

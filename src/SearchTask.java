@@ -35,6 +35,7 @@ public class SearchTask extends TimerTask {
          * Maximum search depth:
          */
 		
+		
 		System.exit(0);
 		
 
