@@ -41,7 +41,7 @@ public class Main {
                 operators.add(i - 4, inputArray[i].toString());
             }
             
-            //Populate the search, dont run the actual search yet.
+            //Populate the search, don't run the actual search yet.
             AISearch search = new AISearch(type, startingValue, targetValue, operators);
             
             //Set a timer that will stop the program if it goes over the time limit. THIS IS ASYNC!
@@ -51,7 +51,7 @@ public class Main {
             //Execute the Search and start the clock.
             //There was an issue in a previous commit in which the period needed to be specified.
             t.schedule(st,(long) (time * 1000),(long) (time * 1000)); 
-            search.path = search.execute();
+            search.execute();
             
             
             
