@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.TimerTask;
 
 import exception.OperatorNotSupportedException;
@@ -5,6 +6,7 @@ import exception.OperatorNotSupportedException;
 public class SearchTask extends TimerTask {
 
 	private AISearch search;
+	public LinkedList<String> path;
 	
 	public SearchTask(AISearch s)
 	{
@@ -20,12 +22,12 @@ public class SearchTask extends TimerTask {
 		
 		
 		try {
-			AISearch.displayPath(search.startingValue,search.path);
+			AISearch.displayPath(search.startingValue,path);
 
-		} catch (OperatorNotSupportedException | NullPointerException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-
-			e.printStackTrace();
+			
+			
 		}
 		
 		this.cancel();

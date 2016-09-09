@@ -158,9 +158,9 @@ public class AISearch {
         	}
         }
 
-        
-        ops.add(pathNode);
         maxDepth++;
+        ops.add(pathNode);
+        this.searchTask.path = ops;
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -224,7 +224,7 @@ public class AISearch {
                 operations.removeLast();
             }
         }
-
+        this.searchTask.path = operations;
         return new LinkedList<String>();
     }
     
