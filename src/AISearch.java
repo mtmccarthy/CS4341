@@ -38,9 +38,9 @@ public class AISearch {
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
-	private static int nodesExpanded=0;
-	private static int maxDepth=0;
-	private static Double finalVal=(double) 0;
+	static int nodesExpanded=0;
+	static int maxDepth=0;
+	static Double finalVal=(double) 0;
     /**
      *
      * @param type The type of search used Iterative, or Greedy.

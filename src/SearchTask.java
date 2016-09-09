@@ -35,6 +35,15 @@ public class SearchTask extends TimerTask {
          * Maximum search depth:
          */
 		
+		int errorAmt = (int) java.lang.Math.abs(search.finalVal - search.targetValue);
+		//int stepsOutput = search.path.size();
+        
+        System.out.println("Error: " + errorAmt);
+        //System.out.println("Number of steps required:" + stepsOutput);
+        //System.out.println("Search required: "+diff / 1000 + " seconds");
+        System.out.println("Nodes Expanded: " + search.nodesExpanded);
+        System.out.println("Maximum search depth: " + search.maxDepth);
+		
 		
 		System.exit(0);
 		
