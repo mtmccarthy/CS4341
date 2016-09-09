@@ -39,7 +39,8 @@ public class AISearch {
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
 	private static int nodesExpanded=0;
-
+	private static int maxDepth=0;
+	private static Double finalVal=(double) 0;
     /**
      *
      * @param type The type of search used Iterative, or Greedy.
@@ -69,6 +70,7 @@ public class AISearch {
         
         long now = System.currentTimeMillis();
         if(this.type.trim().equals("greedy")){
+        	maxDepth++;
             operationList = this.greedySearch(this.startingValue, new LinkedList<String>());
         }
         else if(this.type.trim().equals("iterative")){
@@ -87,11 +89,23 @@ public class AISearch {
          * Nodes expanded:
          * Maximum search depth:
          */
+        //create output values
+  
         long then = System.currentTimeMillis();
-        
         long diff = then - now;
-        System.out.println("Worked in time: "+diff / 1000 + " seconds");
+        int stepsOutput = operationList.size();
+        
+        
+        //Output
         this.displayPath(this.startingValue, operationList);
+        //finalVal is set by displayPath
+        int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
+        
+        System.out.println("Error: " + errorAmt);
+        System.out.println("Number of steps required:" + stepsOutput);
+        System.out.println("Search required: "+diff / 1000 + " seconds");
+        System.out.println("Nodes Expanded: " + nodesExpanded);
+        System.out.println("Maximum search depth: " + maxDepth);
         System.exit(0);
         return operationList;
     }
@@ -137,7 +151,7 @@ public class AISearch {
 
         
         ops.add(pathNode);
-        
+        maxDepth++;
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -162,6 +176,7 @@ public class AISearch {
         }
 
         for(int depth = 1; depth == depth; depth++) {
+        	maxDepth = depth;
             LinkedList<String> operatorPath = this.depthLimitedSearch(this.startingValue, depth, new LinkedList<String>());
             if(!operatorPath.isEmpty()) {
                 return operatorPath;
@@ -251,6 +266,7 @@ public class AISearch {
         if (operator.equals("") == false)
         {
         	Double newValue = AISearch.performOperation(startingValue, operator);
+        	finalVal = newValue;
         	System.out.println(startingValue + " " + operator + " = " + newValue);
             AISearch.displayPath(newValue, operatorPath);
         }
