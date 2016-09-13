@@ -50,6 +50,7 @@ public class SearchTask extends TimerTask {
         System.out.println("Maximum search depth: " + search.maxDepth);
 		
 		
+		
 		System.exit(0);
 		
 

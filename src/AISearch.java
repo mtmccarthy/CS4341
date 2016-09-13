@@ -38,9 +38,10 @@ public class AISearch {
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
-	static int nodesExpanded=0;
-	static int maxDepth=0;
-	static Double finalVal=(double) 0;
+	private static int nodesExpanded=0;
+	private static int maxDepth=0;
+	private static Double finalVal=(double) 0;
+
     /**
      *
      * @param type The type of search used Iterative, or Greedy.
@@ -106,7 +107,11 @@ public class AISearch {
         
         
         //Output
+<<<<<<< HEAD
         displayPath(this.startingValue, operationList);
+=======
+        this.displayPath(this.startingValue, operationList);
+>>>>>>> master
         //finalVal is set by displayPath
         int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
         
@@ -160,7 +165,11 @@ public class AISearch {
 
         maxDepth++;
         ops.add(pathNode);
+<<<<<<< HEAD
         this.searchTask.path = ops;
+=======
+        maxDepth++;
+>>>>>>> master
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
