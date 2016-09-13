@@ -86,6 +86,9 @@ public class AISearch {
             path = operationList;
             System.out.println("Path is " + path.size());
         }
+        else if(this.type.trim().equals("genetic")) {
+            operationList = this.geneticSearch();
+        }
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
@@ -107,11 +110,8 @@ public class AISearch {
         
         
         //Output
-<<<<<<< HEAD
         displayPath(this.startingValue, operationList);
-=======
-        this.displayPath(this.startingValue, operationList);
->>>>>>> master
+
         //finalVal is set by displayPath
         int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
         
@@ -296,10 +296,17 @@ public class AISearch {
 		this.searchTask = searchTask;
 	}
 
+<<<<<<< HEAD
+
+	public LinkedList<String> geneticSearch() {
+
+	    return new LinkedList<>();
+=======
 	public double getStartingValue() {
 	    return this.startingValue;
     }
     public LinkedList<String> getPath() {
         return this.path;
+>>>>>>> master
     }
 }
