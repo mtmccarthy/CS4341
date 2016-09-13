@@ -76,6 +76,9 @@ public class AISearch {
         else if(this.type.trim().equals("iterative")){
             operationList = this.iterativeSearch();
         }
+        else if(this.type.trim().equals("genetic")) {
+            operationList = this.geneticSearch();
+        }
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
@@ -278,4 +281,10 @@ public class AISearch {
 		this.searchTask = searchTask;
 		
 	}
+
+
+	public LinkedList<String> geneticSearch() {
+
+	    return new LinkedList<>();
+    }
 }
