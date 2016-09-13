@@ -25,7 +25,7 @@ public class Evolution {
 
 		LinkedList<Organism> nextGen = new LinkedList<Organism>();
 
-		
+
 		//Evaluate population - returns list in order of evaluation
 		LinkedList<Organism> evaluated = this.evaluate(currentGeneration);//stubbed
 		//Replace worst with best (culling/elitism)

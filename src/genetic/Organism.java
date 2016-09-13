@@ -1,6 +1,8 @@
 package genetic;
 
+
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Organism {
 	private LinkedList<String> path;
@@ -11,7 +13,12 @@ public class Organism {
 		path = new LinkedList<String>();
 		operators = new LinkedList<String>();
 	}
-	
+
+	public Organism(LinkedList<String> operators) {
+		this.path = new LinkedList<String>();
+		this.operators = operators;
+	}
+
 	public Organism(LinkedList<String> path, LinkedList<String> operators)
 	{
 		this.path=path;
@@ -36,9 +43,21 @@ public class Organism {
 	
 	public LinkedList<Organism> reproduce(Organism o)
 	{
+		//Determine which organism has more operators
+		int minAllelles;
+		int thisSize = this.getOperators().size();
+		int thatSize = o.getOperators().size();
+		if(thisSize <= thatSize) {
+			minAllelles = thisSize;
+		}
+		else {
+			minAllelles = thatSize;
+		}
 
-		//Must include mutation
-		return null; // TODO
+		Random ran = new Random();
+		int crossoverPivot = ran.nextInt() % minAllelles;
+		//Crossover contains mutation
+		return this.crossover(this, o, crossoverPivot);
 	}
 	
 	private void mutate()
@@ -49,6 +68,12 @@ public class Organism {
 	public double heuristic()
 	{
 		return 0.0;
+	}
+
+	private LinkedList<Organism> crossover(Organism father, Organism mother, int crossoverPivot) {
+		//contains mutation
+
+		return null;
 	}
 	
 	
