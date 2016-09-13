@@ -38,9 +38,10 @@ public class AISearch {
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
-	static int nodesExpanded=0;
-	static int maxDepth=0;
-	static Double finalVal=(double) 0;
+	private static int nodesExpanded=0;
+	private static int maxDepth=0;
+	private static Double finalVal=(double) 0;
+
     /**
      *
      * @param type The type of search used Iterative, or Greedy.
@@ -85,6 +86,9 @@ public class AISearch {
             path = operationList;
             System.out.println("Path is " + path.size());
         }
+        else if(this.type.trim().equals("genetic")) {
+            operationList = this.geneticSearch();
+        }
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
@@ -107,6 +111,7 @@ public class AISearch {
         
         //Output
         displayPath(this.startingValue, operationList);
+
         //finalVal is set by displayPath
         int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
         
@@ -160,7 +165,11 @@ public class AISearch {
 
         maxDepth++;
         ops.add(pathNode);
+<<<<<<< HEAD
         this.searchTask.path = ops;
+=======
+        maxDepth++;
+>>>>>>> master
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -287,10 +296,17 @@ public class AISearch {
 		this.searchTask = searchTask;
 	}
 
+<<<<<<< HEAD
+
+	public LinkedList<String> geneticSearch() {
+
+	    return new LinkedList<>();
+=======
 	public double getStartingValue() {
 	    return this.startingValue;
     }
     public LinkedList<String> getPath() {
         return this.path;
+>>>>>>> master
     }
 }
