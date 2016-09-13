@@ -36,6 +36,8 @@ public class Organism {
 	
 	public LinkedList<Organism> reproduce(Organism o)
 	{
+
+		//Must include mutation
 		return null; // TODO
 	}
 	
