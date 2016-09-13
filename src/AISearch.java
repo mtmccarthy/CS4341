@@ -33,7 +33,7 @@ public class AISearch {
      * The path that it used by the search (used for post-search report)
      */
     
-	public LinkedList<String> path;
+	public static LinkedList<String> path;
 	private SearchTask searchTask;
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
@@ -41,6 +41,7 @@ public class AISearch {
 	private static int nodesExpanded=0;
 	private static int maxDepth=0;
 	private static Double finalVal=(double) 0;
+
     /**
      *
      * @param type The type of search used Iterative, or Greedy.
@@ -53,7 +54,7 @@ public class AISearch {
         this.startingValue = startV;
         this.targetValue = tarV;
         this.operators = ops;
-
+        this.path = new LinkedList<String>();
                
         
     }
@@ -65,6 +66,11 @@ public class AISearch {
      * @throws SearchTypeNotSupportedException
      */
     public LinkedList<String> execute() throws SearchTypeNotSupportedException, OperatorNotSupportedException{
+
+        nodesExpanded=0;
+        maxDepth=0;
+        finalVal=(double) 0;
+        path = new LinkedList<String>();
     	
         LinkedList<String> operationList;
         
@@ -72,9 +78,13 @@ public class AISearch {
         if(this.type.trim().equals("greedy")){
         	maxDepth++;
             operationList = this.greedySearch(this.startingValue, new LinkedList<String>());
+            path = operationList;
+            System.out.println("Path is " + path.size());
         }
         else if(this.type.trim().equals("iterative")){
             operationList = this.iterativeSearch();
+            path = operationList;
+            System.out.println("Path is " + path.size());
         }
         else if(this.type.trim().equals("genetic")) {
             operationList = this.geneticSearch();
@@ -100,7 +110,8 @@ public class AISearch {
         
         
         //Output
-        this.displayPath(this.startingValue, operationList);
+        displayPath(this.startingValue, operationList);
+
         //finalVal is set by displayPath
         int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
         
@@ -152,9 +163,13 @@ public class AISearch {
         	}
         }
 
-        
-        ops.add(pathNode);
         maxDepth++;
+        ops.add(pathNode);
+<<<<<<< HEAD
+        this.searchTask.path = ops;
+=======
+        maxDepth++;
+>>>>>>> master
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -218,7 +233,7 @@ public class AISearch {
                 operations.removeLast();
             }
         }
-
+        this.searchTask.path = operations;
         return new LinkedList<String>();
     }
     
@@ -266,7 +281,7 @@ public class AISearch {
         }
 
         String operator = operatorPath.removeFirst();
-        if (operator.equals("") == false)
+        if (!operator.equals(""))
         {
         	Double newValue = AISearch.performOperation(startingValue, operator);
         	finalVal = newValue;
@@ -279,12 +294,19 @@ public class AISearch {
 
 	public void setTimerTask(SearchTask searchTask) {
 		this.searchTask = searchTask;
-		
 	}
 
+<<<<<<< HEAD
 
 	public LinkedList<String> geneticSearch() {
 
 	    return new LinkedList<>();
+=======
+	public double getStartingValue() {
+	    return this.startingValue;
+    }
+    public LinkedList<String> getPath() {
+        return this.path;
+>>>>>>> master
     }
 }
