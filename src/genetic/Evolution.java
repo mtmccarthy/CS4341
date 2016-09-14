@@ -1,6 +1,7 @@
 package genetic;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Evolution {
 
@@ -15,16 +16,11 @@ public class Evolution {
 	{
 		return;
 	}
-	
-	public void cull()
-	{
-		
-	}
+
 
 	public LinkedList<Organism> nextGeneration(LinkedList<Organism> currentGeneration) {
 
 		LinkedList<Organism> nextGen = new LinkedList<Organism>();
-
 
 		//Evaluate population - returns list in order of evaluation
 		LinkedList<Organism> evaluated = this.evaluate(currentGeneration);//stubbed
@@ -35,13 +31,13 @@ public class Evolution {
 
 
 		//Reproduce best fitted population
-		for(int i = 1; i < this.population.size(); i++) {
+		for(int i = 1; i < evaluated.size(); i++) {
 			//Randomly select two from the population
 			Organism father;
 			Organism mother;
 			do {
-				father = this.randomSelection();
-				mother = this.randomSelection();
+				father = this.randomSelection(evaluated);
+				mother = this.randomSelection(evaluated);
 			}while(!father.equals(mother));
 			LinkedList<Organism> children = mother.reproduce(father);
 			//Mutation occurs within reproduction
@@ -57,9 +53,12 @@ public class Evolution {
 		return this.population;
 	}
 
-	public Organism randomSelection() {
+	public Organism randomSelection(LinkedList<Organism> population) {
 
-		return new Organism();
+		Random ran = new Random();
+		int popIndex = ran.nextInt() % population.size();
+
+		return population.get(popIndex);
 	}
 
 	public LinkedList<Organism> evaluate(LinkedList<Organism> population) {
