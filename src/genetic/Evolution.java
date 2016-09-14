@@ -1,5 +1,6 @@
 package genetic;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -63,6 +64,14 @@ public class Evolution {
 
 	public LinkedList<Organism> evaluate(LinkedList<Organism> population) {
 		//Returns list sorted by heuristic function
+
+		population.sort(new Comparator<Organism>() {
+			@Override
+			public int compare(Organism o1, Organism o2) {
+				int comparision = (int) Math.floor(o1.heuristic() - o2.heuristic());
+				return comparision;
+			}
+		});
 
 		return population;
 	}
