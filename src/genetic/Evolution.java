@@ -9,9 +9,11 @@ import java.util.Random;
 public class Evolution {
 
 	private LinkedList<Organism> population;
+	private LinkedList<String> operators;
 
-	public Evolution() {
-		this.initializePopulation(250, 30, 15);//Modify these numbers for report
+	public Evolution(LinkedList<String> ops) {
+		this.operators = ops;
+		this.initializePopulation(250, 30, 15, ops);//Modify these numbers for report
 	}
 	
 	public void runTrial()
@@ -77,10 +79,10 @@ public class Evolution {
 		return population;
 	}
 
-	public void initializePopulation(int size, int maxOps, int maxOperand) {
+	public void initializePopulation(int size, int maxOps, int maxOperand, LinkedList<String> initialOps) {
 
 		for(int i = 0; i < size; i++) {
-			Organism org = Organism.randomlyGenerate(maxOps, maxOperand);
+			Organism org = Organism.randomlyGenerate(maxOps, initialOps);
 			this.population.add(org);
 		}
 
