@@ -1,5 +1,7 @@
 package genetic;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -8,10 +10,9 @@ public class Evolution {
 
 	private LinkedList<Organism> population;
 
-	public LinkedList<Organism> createPopulation(int initialSize){
-		return null;
-		
-	};
+	public Evolution() {
+		this.initializePopulation(250, 30, 15);//Modify these numbers for report
+	}
 	
 	public void runTrial()
 	{
@@ -74,6 +75,15 @@ public class Evolution {
 		});
 
 		return population;
+	}
+
+	public void initializePopulation(int size, int maxOps, int maxOperand) {
+
+		for(int i = 0; i < size; i++) {
+			Organism org = Organism.randomlyGenerate(maxOps, maxOperand);
+			this.population.add(org);
+		}
+
 	}
 	
 }
