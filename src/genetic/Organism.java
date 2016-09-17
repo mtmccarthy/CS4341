@@ -102,5 +102,38 @@ public class Organism {
 		return children;
 	}
 	
-	
+	public static Organism randomlyGenerate(int maxOps, int maxOperand){
+		Organism org = new Organism();
+
+		Random ran = new Random();
+		int numOps = ran.nextInt() % maxOps;
+
+		for(int i = 0; i < numOps; i++) {
+			int opType = ran.nextInt() % 5;
+			double operand = ran.nextDouble() % maxOperand;
+			if(opType == 0) {
+				String op = "+ " + operand;
+				org.getOperators().add(op);
+			}
+			else if(opType == 1) {
+				String op = "- " + operand;
+				org.getOperators().add(op);
+			}
+			else if(opType == 2) {
+				String op = "* " + operand;
+				org.getOperators().add(op);
+			}
+			else if(opType == 3) {
+				String op = "^ " + operand;
+				org.getOperators().add(op);
+			}
+			else if(opType == 4) {
+				String op = "/ " + operand;
+				org.getOperators().add(op);
+			}
+		}
+
+		return new Organism();
+	}
+
 }
