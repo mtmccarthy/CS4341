@@ -1,6 +1,5 @@
 package genetic;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.Comparator;
 import java.util.LinkedList;

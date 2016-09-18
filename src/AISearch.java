@@ -38,9 +38,9 @@ public class AISearch {
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
-	private static int nodesExpanded=0;
-	private static int maxDepth=0;
-	private static Double finalVal=(double) 0;
+	static int nodesExpanded=0;
+	static int maxDepth=0;
+	static Double finalVal=(double) 0;
 
     /**
      *
@@ -165,11 +165,8 @@ public class AISearch {
 
         maxDepth++;
         ops.add(pathNode);
-<<<<<<< HEAD
         this.searchTask.path = ops;
-=======
-        maxDepth++;
->>>>>>> master
+
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -296,17 +293,10 @@ public class AISearch {
 		this.searchTask = searchTask;
 	}
 
-<<<<<<< HEAD
+
 
 	public LinkedList<String> geneticSearch() {
 
 	    return new LinkedList<>();
-=======
-	public double getStartingValue() {
-	    return this.startingValue;
-    }
-    public LinkedList<String> getPath() {
-        return this.path;
->>>>>>> master
     }
 }

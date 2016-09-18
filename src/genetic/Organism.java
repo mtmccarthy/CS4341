@@ -4,6 +4,8 @@ package genetic;
 import java.util.LinkedList;
 import java.util.Random;
 
+import exception.OperatorNotSupportedException;
+
 public class Organism {
 	private LinkedList<String> path;
 	private LinkedList<String> operators;
@@ -65,12 +67,42 @@ public class Organism {
 	
 	private void mutate()
 	{
-		return;
+		Random r =  new Random();
+		Integer pathIndex = r.nextInt(this.path.size()-1);
+		Integer replaceIndex = r.nextInt(this.operators.size()-1);
+		
+		path.set(pathIndex,operators.get(replaceIndex));
 	}
 	
 	public double heuristic()
 	{
-		return 0.0;
+		//Heuristic will be calculated though the error (whether the search is successful)
+		//I plan to use a recursive function to trace through the route.
+		
+		try {
+			return trace(0,0);
+		} catch (OperatorNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	//performOperation(Double root, String op)
+	
+	public double trace(double root, Integer index) throws OperatorNotSupportedException
+	{
+		//We are just going to trce through the path recursively
+		if (path.size() > index)
+		{
+			root += performOperation(root, path.get(index++));
+			return trace(root,index++);
+		}
+		else
+		{
+			
+			return root;
+		}
 	}
 
 	private LinkedList<Organism> crossover(Organism father, Organism mother, int crossoverPivot, int maxsize) {
@@ -118,5 +150,41 @@ public class Organism {
 
 		return org;
 	}
+	
+	 /**
+     * Parse a string and an integer to manipulate the new value
+     * @param root The branch we are expanding
+     * @param op operator we are using
+     * @return the new value of the branch
+     * @throws OperatorNotSupportedException misuse of operator
+     */
+    public static Double performOperation(Double root, String op) throws OperatorNotSupportedException{
+    	
+    	
+        //parse the operator
+        String[] splitOperator = op.split("\\s+");//Divides operator from operand
+        String operator = splitOperator[0];
+        Double operand = Double.parseDouble(splitOperator[1]);
+        if(operator.equals("+")){
+
+            return Math.floor(root + operand);
+        }
+        else if(operator.equals("-")){
+            return Math.floor(root - operand);
+        }
+        else if(operator.equals("*")){
+            return Math.floor(root * operand);
+        }
+        else if(operator.equals("/")){
+            return Math.floor(root / operand);
+        }
+        else if(operator.equals("^")){
+            return Math.floor(Math.pow(root, operand));
+        }
+        else {
+            throw new OperatorNotSupportedException("Operator not supported. Please make sure all operators are in an acceptable format. Formats include '+', '-', '*', '/', and '^'");
+        }
+    }
+    
 
 }
