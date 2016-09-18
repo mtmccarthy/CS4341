@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 import exception.OperatorNotSupportedException;
 import exception.SearchTypeNotSupportedException;
+import genetic.Evolution;
 
 /**
  * Created by Matt McCarthy on 9/3/16.
@@ -296,6 +297,7 @@ public class AISearch {
 
 
 	public LinkedList<String> geneticSearch() {
+		Evolution e  = new Evolution(operators, this.finalVal);
 
 	    return new LinkedList<>();
     }

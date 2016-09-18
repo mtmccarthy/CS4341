@@ -9,6 +9,7 @@ import exception.OperatorNotSupportedException;
 public class Organism {
 	private LinkedList<String> path;
 	private LinkedList<String> operators;
+	private Integer finalValue;
 	
 	public Organism()
 	{
@@ -80,7 +81,7 @@ public class Organism {
 		//I plan to use a recursive function to trace through the route.
 		
 		try {
-			return trace(0,0);
+			return this.finalValue - trace(0,0);
 		} catch (OperatorNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,9 +135,8 @@ public class Organism {
 		return children;
 	}
 	
-	public static Organism randomlyGenerate(int maxOps, LinkedList<String> ops){
+	public static Organism randomlyGenerate(int maxOps, LinkedList<String> ops, double finalInt){
 		Organism org = new Organism();
-
 		Random ran = new Random();
 		int numOps = ran.nextInt() % maxOps;
 

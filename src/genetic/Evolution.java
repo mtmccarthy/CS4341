@@ -9,8 +9,10 @@ public class Evolution {
 
 	private LinkedList<Organism> population;
 	private LinkedList<String> operators;
+	private Double goal;
 
-	public Evolution(LinkedList<String> ops) {
+	public Evolution(LinkedList<String> ops, Double goal) {
+		this.goal = goal;
 		this.operators = ops;
 		this.initializePopulation(250, 30, 15, ops);//Modify these numbers for report
 	}
@@ -81,7 +83,7 @@ public class Evolution {
 	public void initializePopulation(int size, int maxOps, int maxOperand, LinkedList<String> initialOps) {
 
 		for(int i = 0; i < size; i++) {
-			Organism org = Organism.randomlyGenerate(maxOps, initialOps);
+			Organism org = Organism.randomlyGenerate(maxOps, initialOps, goal);
 			this.population.add(org);
 		}
 
