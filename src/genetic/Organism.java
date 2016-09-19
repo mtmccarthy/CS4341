@@ -9,7 +9,7 @@ import exception.OperatorNotSupportedException;
 public class Organism {
 	private LinkedList<String> path;
 	private LinkedList<String> operators;
-	private Integer finalValue;
+	private double finalValue;
 	
 	public Organism()
 	{
@@ -89,11 +89,9 @@ public class Organism {
 		return 0;
 	}
 	
-	//performOperation(Double root, String op)
-	
 	public double trace(double root, Integer index) throws OperatorNotSupportedException
 	{
-		//We are just going to trce through the path recursively
+		//We are just going to trace through the path recursively
 		if (path.size() > index)
 		{
 			root += performOperation(root, path.get(index++));
@@ -147,7 +145,9 @@ public class Organism {
 				org.getOperators().add(op);
 			}
 		}
-
+		
+		org.finalValue = finalInt;
+		
 		return org;
 	}
 	

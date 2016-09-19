@@ -5,11 +5,14 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import exception.OperatorNotSupportedException;
+
 public class Evolution {
 
 	private LinkedList<Organism> population;
 	private LinkedList<String> operators;
 	private Double goal;
+	private Double currentResult;
 
 	public Evolution(LinkedList<String> ops, Double goal) {
 		this.goal = goal;
@@ -19,6 +22,19 @@ public class Evolution {
 	
 	public void runTrial()
 	{
+		//sort population
+		this.evaluate(population);
+		//get our best value
+		try {
+			currentResult =  population.getFirst().trace(0,0);
+		} catch (OperatorNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		population = nextGeneration(population);
+		
+		
 		return;
 	}
 
