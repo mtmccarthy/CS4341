@@ -62,8 +62,8 @@ public class Organism {
 
 		Random ran = new Random();
 		//debug messages
-		//System.out.println(ran.nextInt());
-		//System.out.println(minAllelles);
+		System.out.println(ran.nextInt());
+		System.out.println(minAllelles);
 		int crossoverPivot = Math.abs(ran.nextInt() % minAllelles);
 		//Crossover contains mutation
 		return this.crossover(this, o, crossoverPivot, maxAllelles);
@@ -139,14 +139,17 @@ public class Organism {
 	public static Organism randomlyGenerate(int maxOps, LinkedList<String> ops, double finalInt){
 		Organism org = new Organism();
 		Random ran = new Random();
-		int numOps = ran.nextInt() % maxOps;
-
+		int numOps = Math.abs(ran.nextInt() % maxOps);
+		
 		for(int i = 0; i < numOps; i++) {
 			int opIndex = Math.abs(ran.nextInt() % ops.size());
 			String op = ops.get(opIndex);
+			/**
 			if(!org.getOperators().contains(op)) {
 				org.getOperators().add(op);
 			}
+			*/
+			org.getOperators().add(op);
 		}
 		
 		org.finalValue = finalInt;
