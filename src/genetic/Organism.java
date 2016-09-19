@@ -61,7 +61,10 @@ public class Organism {
 		}
 
 		Random ran = new Random();
-		int crossoverPivot = ran.nextInt() % minAllelles;
+		//debug messages
+		//System.out.println(ran.nextInt());
+		//System.out.println(minAllelles);
+		int crossoverPivot = Math.abs(ran.nextInt() % minAllelles);
 		//Crossover contains mutation
 		return this.crossover(this, o, crossoverPivot, maxAllelles);
 	}
@@ -70,7 +73,7 @@ public class Organism {
 	{
 		Random r =  new Random();
 		Integer pathIndex = r.nextInt(Math.abs(this.path.size()-1));
-		Integer replaceIndex = r.nextInt(this.operators.size()-1);
+		Integer replaceIndex = r.nextInt(Math.abs(this.operators.size()-1));
 		
 		path.set(pathIndex,operators.get(replaceIndex));
 	}
@@ -167,19 +170,19 @@ public class Organism {
         Double operand = Double.parseDouble(splitOperator[1]);
         if(operator.equals("+")){
 
-            return Math.floor(root + operand);
+            return (root + operand);
         }
         else if(operator.equals("-")){
-            return Math.floor(root - operand);
+            return (root - operand);
         }
         else if(operator.equals("*")){
-            return Math.floor(root * operand);
+            return (root * operand);
         }
         else if(operator.equals("/")){
-            return Math.floor(root / operand);
+            return (root / operand);
         }
         else if(operator.equals("^")){
-            return Math.floor(Math.pow(root, operand));
+            return (Math.pow(root, operand));
         }
         else {
             throw new OperatorNotSupportedException("Operator not supported. Please make sure all operators are in an acceptable format. Formats include '+', '-', '*', '/', and '^'");
