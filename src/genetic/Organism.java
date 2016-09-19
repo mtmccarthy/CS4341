@@ -69,7 +69,7 @@ public class Organism {
 	private void mutate()
 	{
 		Random r =  new Random();
-		Integer pathIndex = r.nextInt(this.path.size()-1);
+		Integer pathIndex = r.nextInt(Math.abs(this.path.size()-1));
 		Integer replaceIndex = r.nextInt(this.operators.size()-1);
 		
 		path.set(pathIndex,operators.get(replaceIndex));
@@ -139,7 +139,7 @@ public class Organism {
 		int numOps = ran.nextInt() % maxOps;
 
 		for(int i = 0; i < numOps; i++) {
-			int opIndex = ran.nextInt() % ops.size();
+			int opIndex = Math.abs(ran.nextInt() % ops.size());
 			String op = ops.get(opIndex);
 			if(!org.getOperators().contains(op)) {
 				org.getOperators().add(op);

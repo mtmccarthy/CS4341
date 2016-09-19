@@ -17,6 +17,7 @@ public class Evolution {
 	public Evolution(LinkedList<String> ops, Double goal) {
 		this.goal = goal;
 		this.operators = ops;
+		this.population = new LinkedList<Organism>();
 		this.initializePopulation(250, 30, 15, ops);//Modify these numbers for report
 	}
 	
@@ -77,7 +78,7 @@ public class Evolution {
 	public Organism randomSelection(LinkedList<Organism> population) {
 
 		Random ran = new Random();
-		int popIndex = ran.nextInt() % population.size();
+		int popIndex = Math.abs(ran.nextInt() % population.size());
 
 		return population.get(popIndex);
 	}

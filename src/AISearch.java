@@ -300,7 +300,9 @@ public class AISearch {
 
 	public LinkedList<String> geneticSearch() {
 		Evolution e  = new Evolution(operators, this.finalVal);
-		e.runTrial();
+		for(int i = 0; i<10; i++){
+			e.runTrial();
+		}
 		
 		this.searchTask.path = e.getPopulation().getFirst().getPath();
 		
