@@ -62,8 +62,8 @@ public class Organism {
 
 		Random ran = new Random();
 		//debug messages
-		System.out.println(ran.nextInt());
-		System.out.println(minAllelles);
+		//System.out.println(ran.nextInt());
+		//System.out.println(minAllelles);
 		int crossoverPivot = Math.abs(ran.nextInt() % minAllelles);
 		//Crossover contains mutation
 		return this.crossover(this, o, crossoverPivot, maxAllelles);
