@@ -8,25 +8,21 @@ import exception.OperatorNotSupportedException;
 
 public class Organism {
 	private LinkedList<String> path;
-	private LinkedList<String> operators;
-	private Integer finalValue;
+	double finalValue;
+	public static LinkedList<String> operators;
+	public static double targetValue;
+	public static double startValue;
 	
 	public Organism()
 	{
 		path = new LinkedList<String>();
-		operators = new LinkedList<String>();
 	}
 
-	public Organism(LinkedList<String> operators) {
-		this.path = new LinkedList<String>();
-		this.operators = operators;
+	public Organism(LinkedList<String> path) {
+		this.path = path;
 	}
 
-	public Organism(LinkedList<String> path, LinkedList<String> operators)
-	{
-		this.path=path;
-		this.operators=operators;
-	}
+
 	
 	public LinkedList<String> getPath() {
 		return path;
@@ -49,8 +45,8 @@ public class Organism {
 		//Determine which organism has more operators
 		int minAllelles;
 		int maxAllelles;
-		int thisSize = this.getOperators().size();
-		int thatSize = o.getOperators().size();
+		int thisSize = this.path.size();
+		int thatSize = o.path.size();
 		if(thisSize <= thatSize) {
 			minAllelles = thisSize;
 			maxAllelles = thatSize;
@@ -61,7 +57,10 @@ public class Organism {
 		}
 
 		Random ran = new Random();
-		int crossoverPivot = ran.nextInt() % minAllelles;
+		
+		if (maxAllelles == 0)
+			System.out.println(maxAllelles);
+		int crossoverPivot = Math.abs(ran.nextInt(maxAllelles) );
 		//Crossover contains mutation
 		return this.crossover(this, o, crossoverPivot, maxAllelles);
 	}
@@ -69,8 +68,8 @@ public class Organism {
 	private void mutate()
 	{
 		Random r =  new Random();
-		Integer pathIndex = r.nextInt(this.path.size()-1);
-		Integer replaceIndex = r.nextInt(this.operators.size()-1);
+		Integer pathIndex = Math.abs( r.nextInt(this.path.size()) );
+		Integer replaceIndex = Math.abs( r.nextInt(this.operators.size()-1) );
 		
 		path.set(pathIndex,operators.get(replaceIndex));
 	}
@@ -81,12 +80,13 @@ public class Organism {
 		//I plan to use a recursive function to trace through the route.
 		
 		try {
-			return this.finalValue - trace(0,0);
+			this.finalValue = trace(this.startValue,0);
+			return Math.abs(this.targetValue - trace(this.startValue,0))+ this.path.size()/10;
 		} catch (OperatorNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return 999999;
 	}
 	
 	//performOperation(Double root, String op)
@@ -94,16 +94,15 @@ public class Organism {
 	public double trace(double root, Integer index) throws OperatorNotSupportedException
 	{
 		//We are just going to trce through the path recursively
+		
 		if (path.size() > index)
 		{
-			root += performOperation(root, path.get(index++));
-			return trace(root,index++);
+			root = performOperation(root, path.get(index));
+			index = index + 1;
+			return trace(root,index);
 		}
-		else
-		{
-			
+		
 			return root;
-		}
 	}
 
 	private LinkedList<Organism> crossover(Organism father, Organism mother, int crossoverPivot, int maxsize) {
@@ -114,12 +113,12 @@ public class Organism {
 
 		//crossover
 		for(int i = 0; i < crossoverPivot; i++) {//make sure to come back and check corner cases here
-			childAOps.add(i, father.getOperators().get(i));
-			childBOps.add(i, mother.getOperators().get(i));
+			childAOps.add(i, father.path.get(i));
+			childBOps.add(i, mother.path.get(i));
 		}
 		for(int j = crossoverPivot; j < maxsize; j++) {
-			childAOps.add(j, mother.getOperators().get(j));
-			childBOps.add(j, father.getOperators().get(j));
+			childAOps.add(j, mother.path.get(j));
+			childBOps.add(j, father.path.get(j));
 		}
 		Organism childA = new Organism(childAOps);
 		Organism childB = new Organism(childBOps);
@@ -138,18 +137,16 @@ public class Organism {
 	public static Organism randomlyGenerate(int maxOps, LinkedList<String> ops, double finalInt){
 		Organism org = new Organism();
 		Random ran = new Random();
-		int numOps = ran.nextInt() % maxOps;
+		int numOps = Math.abs( ran.nextInt() % maxOps  + 1);
 
-		for(int i = 0; i < numOps; i++) {
-			int opIndex = ran.nextInt() % ops.size();
+		for(int i = 0; i <= numOps; i++) {
+			int opIndex = Math.abs((ran.nextInt() % ops.size()));
 			String op = ops.get(opIndex);
-			if(!org.getOperators().contains(op)) {
-				org.getOperators().add(op);
-			}
+				org.path.add(op);
 		}
 
 		return org;
-	}
+	}	
 	
 	 /**
      * Parse a string and an integer to manipulate the new value
@@ -167,19 +164,19 @@ public class Organism {
         Double operand = Double.parseDouble(splitOperator[1]);
         if(operator.equals("+")){
 
-            return Math.floor(root + operand);
+            return (root + operand);
         }
         else if(operator.equals("-")){
-            return Math.floor(root - operand);
+            return (root - operand);
         }
         else if(operator.equals("*")){
-            return Math.floor(root * operand);
+            return (root * operand);
         }
         else if(operator.equals("/")){
-            return Math.floor(root / operand);
+            return (root / operand);
         }
         else if(operator.equals("^")){
-            return Math.floor(Math.pow(root, operand));
+            return (Math.pow(root, operand));
         }
         else {
             throw new OperatorNotSupportedException("Operator not supported. Please make sure all operators are in an acceptable format. Formats include '+', '-', '*', '/', and '^'");

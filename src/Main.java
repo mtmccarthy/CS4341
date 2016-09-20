@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import exception.OperatorNotSupportedException;
 import exception.SearchTypeNotSupportedException;
+import genetic.Organism;
 
 
 /**
@@ -36,21 +37,18 @@ public class Main {
             targetValue = Double.parseDouble(inputArray[2].toString());
             time = Double.parseDouble(inputArray[3].toString()); //Third line is the time
             operators = new LinkedList<String>();
-            
+            Organism.startValue = startingValue;
+            Organism.targetValue = targetValue;
             for(int i = 4; i < inputArray.length; i++){
                 operators.add(i - 4, inputArray[i].toString());
             }
+            
+            Organism.operators = operators;
             
             //Populate the search, don't run the actual search yet.
             AISearch search = new AISearch(type, startingValue, targetValue, operators);
             
             //Set a timer that will stop the program if it goes over the time limit. THIS IS ASYNC!
-            Timer t = new Timer();
-            SearchTask st = new SearchTask(search);
-            
-            //Execute the Search and start the clock.
-            //There was an issue in a previous commit in which the period needed to be specified.
-            t.schedule(st,(long) (time * 1000),(long) (time * 1000)); 
             search.execute();
             
             
