@@ -51,7 +51,7 @@ public class Evolution {
         
         System.out.println("Error: " + errorAmt);
         System.out.println("Size of Organism: " + orgSize);
-        System.out.println("Search required: "+diff / 1000 + " seconds");
+        System.out.println("Search required: "+diff / (1000.0) + " seconds");
         System.out.println("Population: " + this.population.size());
         System.out.println("Number of Generations " + genCount);
         
@@ -136,8 +136,11 @@ public class Evolution {
 		population.sort(new Comparator<Organism>() {
 			@Override
 			public int compare(Organism o1, Organism o2) {
-				int comparision = (int) Math.ceil(o1.heuristic() - o2.heuristic());
-				return comparision;
+				Double dif = (o1.heuristic() - o2.heuristic());
+				if (dif > 0.00001)
+					return 0;
+							
+				return (int) Math.floor(dif);
 			}
 		});
 
