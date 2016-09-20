@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 import exception.OperatorNotSupportedException;
 import exception.SearchTypeNotSupportedException;
+import genetic.Evolution;
 
 /**
  * Created by Matt McCarthy on 9/3/16.
@@ -38,9 +39,9 @@ public class AISearch {
 	/**
 	 * The amount of nodes expanded (needed for post-search report)
 	 */
-	private static int nodesExpanded=0;
-	private static int maxDepth=0;
-	private static Double finalVal=(double) 0;
+	static int nodesExpanded=0;
+	static int maxDepth=0;
+	static Double finalVal=(double) 0;
 
     /**
      *
@@ -74,7 +75,7 @@ public class AISearch {
     	
         LinkedList<String> operationList;
         
-        long now = System.currentTimeMillis();
+        
         if(this.type.trim().equals("greedy")){
         	maxDepth++;
             operationList = this.greedySearch(this.startingValue, new LinkedList<String>());
@@ -92,35 +93,7 @@ public class AISearch {
         else {
             throw new SearchTypeNotSupportedException("Unsupported Search Type. Please make sure the first line in your file has a supported search type.");
         }
-        this.searchTask.cancel();
-
-        
-        /*
-         * Successful Case: Need to output
-         * Error
-         * Search require
-         * Nodes expanded:
-         * Maximum search depth:
-         */
-        //create output values
-  
-        long then = System.currentTimeMillis();
-        long diff = then - now;
-        int stepsOutput = operationList.size();
-        
-        
-        //Output
-        displayPath(this.startingValue, operationList);
-
-        //finalVal is set by displayPath
-        int errorAmt = (int) java.lang.Math.abs(finalVal - targetValue);
-        
-        System.out.println("Error: " + errorAmt);
-        System.out.println("Number of steps required:" + stepsOutput);
-        System.out.println("Search required: "+diff / 1000 + " seconds");
-        System.out.println("Nodes Expanded: " + nodesExpanded);
-        System.out.println("Maximum search depth: " + maxDepth);
-        System.exit(0);
+       
         return operationList;
     }
 
@@ -165,11 +138,8 @@ public class AISearch {
 
         maxDepth++;
         ops.add(pathNode);
-<<<<<<< HEAD
         this.searchTask.path = ops;
-=======
-        maxDepth++;
->>>>>>> master
+
         return greedySearch(this.performOperation(h, pathNode),ops);
     }
 
@@ -296,17 +266,11 @@ public class AISearch {
 		this.searchTask = searchTask;
 	}
 
-<<<<<<< HEAD
+
 
 	public LinkedList<String> geneticSearch() {
+		Evolution e  = new Evolution(operators, this.targetValue);
 
 	    return new LinkedList<>();
-=======
-	public double getStartingValue() {
-	    return this.startingValue;
-    }
-    public LinkedList<String> getPath() {
-        return this.path;
->>>>>>> master
     }
 }

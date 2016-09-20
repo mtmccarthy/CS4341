@@ -1,4 +1,4 @@
-iterative
+genetic
 4.0
 11.0
 2.5
